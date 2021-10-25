@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator _animator;
     private GameObject interactuableObject;
+    public GameObject objectPoint;
     [SerializeField] private Button interactButton;
     [SerializeField] private FixedJoystick _fixedJoystick;
 
@@ -56,6 +57,12 @@ public class PlayerController : MonoBehaviour
             interactButton.gameObject.SetActive(true);
             interactuableObject = other.gameObject;
         }
+        else if (other.CompareTag("Extintor"))
+        {
+            other.transform.parent = objectPoint.transform;
+            other.transform.position = objectPoint.transform.position;
+            
+        }
        
     }
 
@@ -70,7 +77,6 @@ public class PlayerController : MonoBehaviour
 
     public void InteractWith()
     {
-        Debug.Log("Hello!");
-        /*interactuableObject.NPC_Controller.Dialogue();*/
+        GameManager.instance.Interact();
     }
 }

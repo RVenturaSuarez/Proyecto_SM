@@ -5,6 +5,9 @@ using UnityEngine;
 public class NPC_Controller : MonoBehaviour
 {
     // Start is called before the first frame update
+    public int npcID;
+
+
     void Start()
     {
         
@@ -14,5 +17,14 @@ public class NPC_Controller : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            GameManager.instance.valueNpcID = npcID;
+        }
     }
 }
