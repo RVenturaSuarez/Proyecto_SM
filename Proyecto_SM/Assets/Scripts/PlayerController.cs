@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
 
 
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -79,4 +81,11 @@ public class PlayerController : MonoBehaviour
     {
         GameManager.instance.Interact();
     }
+
+
+    public GameObject GetInteractableObject()
+    {
+        return interactuableObject;
+    }
+
 }

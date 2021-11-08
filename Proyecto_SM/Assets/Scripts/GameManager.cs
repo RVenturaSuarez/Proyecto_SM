@@ -6,21 +6,33 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    private PlayerController playerC;
     public int currentStateLevel;
     public int valueNpcID;
+
+
+    private GameObject interactableObject;
+    public static Logic_Extintor extLogi;
 
     private void Awake()
     {
         if (instance == null)
         {
             DontDestroyOnLoad(gameObject);
-            currentStateLevel = 0;
+            currentStateLevel = 1;
             instance = this;
+            extLogi = FindObjectOfType<Logic_Extintor>();
         }
         else
         {
             Destroy(gameObject);
         }   
+    }
+
+
+    private void Start()
+    {
+        playerC =  GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(); 
     }
 
     private void Update()
@@ -48,15 +60,26 @@ public class GameManager : MonoBehaviour
         {
             // Activar dialogo con NPC's
             ActivateDialog(valueNpcID);
-        } else if (currentStateLevel == 1)
+        }
+        else if (currentStateLevel == 1)
         {
-            // Activar extintor
-            
+            interactableObject = playerC.GetInteractableObject();
+            var extintor = Lvl1Controller.instance.extintorInGame.GetComponent<Logic_Extintor>();
 
-        } else if (currentStateLevel == 2)
+            // Activar extintor
+            if (extintor._parent == null)
+            {
+                Debug.Log("No puedes apagar el fuego así");
+            } else
+            {
+                extintor.ExtinguirFuego(interactableObject);
+            }
+        } 
+        else if (currentStateLevel == 2)
         {
             // ????
-        } else if (currentStateLevel == 3)
+        } 
+        else if (currentStateLevel == 3)
         {
             // Disparar
         }
@@ -67,5 +90,15 @@ public class GameManager : MonoBehaviour
     public void ActivateDialog(int npcID)
     {
         // Lógica para activar dialogos
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(currentStateLevel);
+    }
+
+    public void ReturnToMain()
+    {
+        SceneManager.LoadScene(0);
     }
 }
