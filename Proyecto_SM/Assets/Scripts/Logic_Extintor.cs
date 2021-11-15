@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Logic_Extintor : MonoBehaviour
 {
+
+    private Lvl1Controller lvl1Controller;
     private int uses = 3;
     public GameObject _parent;
 
     // Start is called before the first frame update
     void Start()
     {
+        lvl1Controller = GameObject.FindGameObjectWithTag("Level_1_Controller").GetComponent<Lvl1Controller>();
         _parent = null;
     }
 
@@ -38,7 +41,7 @@ public class Logic_Extintor : MonoBehaviour
             {
                 Destroy(gameObject);
                 // Spawn new extintor in game
-                Lvl1Controller.instance.InstantiateExt();
+                lvl1Controller.InstantiateExt();
             }
         }
         

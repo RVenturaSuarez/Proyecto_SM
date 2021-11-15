@@ -135,8 +135,9 @@ GameObject:
   - component: {fileID: 80868251}
   - component: {fileID: 80868250}
   - component: {fileID: 80868249}
+  - component: {fileID: 80868253}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: NPC
   m_TagString: Interactuable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,6 +219,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &80868253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80868248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f0a62eebb3d7e4ab6501b6891e31e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcID: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   rotationSpeed: 70
+  objectPoint: {fileID: 0}
   interactButton: {fileID: 1849261005}
   _fixedJoystick: {fileID: 1859107348}
 --- !u!1 &1483413720

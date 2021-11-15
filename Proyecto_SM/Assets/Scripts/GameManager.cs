@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance = null;
+
+    public Lvl1Controller lvl1Controller;
+    public static GameManager instance;
     private PlayerController playerC;
     public int currentStateLevel;
     public int valueNpcID;
+    private Logic_Extintor extintor;
 
 
     private GameObject interactableObject;
@@ -19,7 +22,6 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             DontDestroyOnLoad(gameObject);
-            currentStateLevel = 1;
             instance = this;
             extLogi = FindObjectOfType<Logic_Extintor>();
         }
@@ -32,11 +34,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        playerC =  GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(); 
+
+
     }
 
     private void Update()
     {
+
+        if (currentStateLevel == 1 && lvl1Controller == null )
+        {
+            lvl1Controller = GameObject.FindGameObjectWithTag("Level_1_Controller").GetComponent<Lvl1Controller>();
+            playerC = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        }
+
+
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             ChangeLevel(1);
@@ -63,9 +75,10 @@ public class GameManager : MonoBehaviour
         }
         else if (currentStateLevel == 1)
         {
-            interactableObject = playerC.GetInteractableObject();
-            var extintor = Lvl1Controller.instance.extintorInGame.GetComponent<Logic_Extintor>();
 
+            interactableObject = playerC.GetInteractableObject();
+            extintor = lvl1Controller.getExtintorInGame().GetComponent<Logic_Extintor>();
+            Debug.Log("Estoy Pulsando");
             // Activar extintor
             if (extintor._parent == null)
             {
@@ -92,13 +105,4 @@ public class GameManager : MonoBehaviour
         // Lógica para activar dialogos
     }
 
-    public void ReloadScene()
-    {
-        SceneManager.LoadScene(currentStateLevel);
-    }
-
-    public void ReturnToMain()
-    {
-        SceneManager.LoadScene(0);
-    }
 }

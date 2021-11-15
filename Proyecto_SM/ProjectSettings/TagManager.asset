@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Interactuable
   - Extintor
+  - Point
+  - Enemy
+  - Level_1_Controller
+  - GameManager
   layers:
   - Default
   - TransparentFX

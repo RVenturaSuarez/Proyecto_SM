@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Lvl1Controller : MonoBehaviour
 {
-    public static Lvl1Controller instance = null;
     private PlayerController playerC;
     [SerializeField] private GameObject extintorPrefab;
     public GameObject extintorInGame;
@@ -19,22 +19,16 @@ public class Lvl1Controller : MonoBehaviour
     public int limitBadPCs = 5;
 
 
-    private void Awake()
+    public GameObject getExtintorInGame()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        return extintorInGame;
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("JEJEJEJEEJ");
         timer = timeToWIN;
         playerC = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         InstantiateExt();
@@ -51,12 +45,10 @@ public class Lvl1Controller : MonoBehaviour
             Time.timeScale = 0;
             timeText.text = "You Win!";
             WinPanel.SetActive(true);
-            Debug.Log("YOU WIN");
         } else
         {
             timer -= Time.deltaTime;
             timeText.text = "" + ((int)timer);
-            Debug.Log((int)timer);
         }
 
 
@@ -93,5 +85,17 @@ public class Lvl1Controller : MonoBehaviour
     public void DisminuirPCCounter()
     {
         pcBadCount--;
+    }
+
+    public void ReloadScene()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(1);
+    }
+
+    public void ReturnToMain()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 }

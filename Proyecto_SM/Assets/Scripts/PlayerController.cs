@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private FixedJoystick _fixedJoystick;
 
 
-
     
 
 
@@ -65,7 +64,7 @@ public class PlayerController : MonoBehaviour
             other.transform.position = objectPoint.transform.position;
             
         }
-       
+        
     }
 
     private void OnTriggerExit(Collider other)

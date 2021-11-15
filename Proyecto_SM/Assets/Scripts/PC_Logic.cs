@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PC_Logic : MonoBehaviour
 {
+    private Lvl1Controller lvl1Controller;
     private bool onFire;
     public Material _PCMaterial;
     public Material _FireMaterial;
@@ -14,8 +15,9 @@ public class PC_Logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lvl1Controller = GameObject.FindGameObjectWithTag("Level_1_Controller").GetComponent<Lvl1Controller>();
         onFire = false;
-        InvokeRepeating("GenerateFire", 0f, 3f);
+        InvokeRepeating("GenerateFire", 5f, 5f);
     }
 
     // Update is called once per frame
@@ -40,21 +42,21 @@ public class PC_Logic : MonoBehaviour
         if (randomNum >= fireProb)
         {
             onFire = true;
-            Lvl1Controller.instance.IncrementPCCounter();
+            lvl1Controller.IncrementPCCounter();
         }
     }
 
     public void Apagar()
     {
         onFire = false;
-        Lvl1Controller.instance.DisminuirPCCounter();
+        lvl1Controller.DisminuirPCCounter();
         CancelInvoke("GenerateFire");
-        StartCoroutine("WaitForMe");
+        StartCoroutine(WaitForMe());
     }
 
     IEnumerator WaitForMe()
     {
-        yield return new WaitForSeconds(3);
-        InvokeRepeating("GenerateFire", 0f, 3f);
+        yield return new WaitForSeconds(5);
+        InvokeRepeating("GenerateFire", 0f, 5f);
     }
 }
